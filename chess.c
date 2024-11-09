@@ -19,7 +19,7 @@ void unlinkMemory(char** fig){
   unregisterPointer((void**)&fig);
   countMemoryEntries();
 }
-
+/*
 char** reverse(char** fig){
   int rows = 0;
   while(fig[++rows]);
@@ -37,5 +37,40 @@ char** reverse(char** fig){
   newFig[rows] = 0;
   unlinkMemory(newFig);
   return newFig;
+}
+*/
+
+char** reverse(char** figures){
+  int fila = 0;
+
+  // Contar el número de filas
+  while (figures[fila] != nullptr) {
+    fila++;
+  }
+
+  // Aquí usamos allocateMemory para asignar memoria
+  // Filas: 'fila' y columnas: asumimos que cada fila tiene un tamaño 'fila' también
+  char** reverso = allocateMemory(fila, fila);
+
+  // Cambiar el contenido de los caracteres
+  for (int i = 0; i < fila; i++) {
+    for (int j = 0; j < fila; j++) {
+      if (figures[i][j] == '.' || figures[i][j] == '_') {
+        reverso[i][j] = '@';
+      }
+      else if (figures[i][j] == '@') {
+        reverso[i][j] = '.';
+      }
+      else {
+        reverso[i][j] = figures[i][j];
+      }
+    }
+    reverso[i][fila] = '\0'; // Terminar las cadenas en cada fila
+  }
+
+  // Aseguramos que la última fila también esté terminada correctamente
+  reverso[fila] = NULL;
+  unlinkMemory(reverso);
+  return reverso;
 }
 

@@ -97,6 +97,7 @@ void garbageCollector(){
       currentEntry = currentEntry->next;
     }else{
       // Sin referencias activas, liberar memoria
+      //fprintf(stderr, "memoryList antes de eliminar %p %p\n", memoryList->memory, currentEntry->memory);
       free(currentEntry->memory);
       if(prevEntry)
         prevEntry->next = currentEntry->next;
@@ -107,6 +108,8 @@ void garbageCollector(){
       free(toFree);
     }
   }
+  fprintf(stderr, "el ultimo %p", currentEntry);
+  free(currentEntry);
 }
 
 int countMemoryEntries(){

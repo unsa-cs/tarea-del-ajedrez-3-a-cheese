@@ -47,6 +47,7 @@ void memoryAlloc(void** pointer, size_t size){
   entry->pointers = createPointerNode(pointer);
   entry->next = memoryList;
   memoryList = entry;
+  fprintf(stderr,"MemoryAlloc(entry, entry->pointers) %p %p \n",entry, entry->pointers);
 }
 
 // Función para agregar un puntero adicional que apunte a la misma memoria
@@ -80,7 +81,7 @@ void unregisterPointer(void** pointer){
         return;
       }
       prev = ptr;
-      ptr = ptr->next;
+        ptr = ptr->next;
     }
     current = current->next;
   }
@@ -109,9 +110,11 @@ void garbageCollector(){
 }
 
 int countMemoryEntries(){
+  fprintf(stdout,"-----\n");
   int count = 0;
   MemoryEntry* current = memoryList;
   while(current){
+    fprintf(stderr, "MemoryList(current, current>pointers) %p %p\n", current, current->pointers);
     if(current->pointers)
       count++;
     current = current->next;

@@ -70,13 +70,6 @@ void unregisterPointer(void** pointer){
   int cont=0;
   fprintf(stderr, "valor de pointer parametro %p\n", pointer);
   MemoryEntry* current = memoryList;
-  MemoryEntry* tmp = memoryList;
-  while(cont<59){
-    fprintf(stderr,"TempMemory : %p \n",tmp->pointers->pointer);
-    tmp = tmp->next;
-    cont++;
-  }
-  fprintf(stderr,"Tmp actual %p \n",tmp->pointers->pointer);
   //fprintf(stderr, "puntero de cada memoryList %p\n", );
   while(current){
     PointerNode* prev = NULL;

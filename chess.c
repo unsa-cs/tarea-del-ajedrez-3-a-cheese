@@ -16,7 +16,7 @@ void unlinkMemory(char** fig){
   for(int i = 0; fig[i]; i++)
     unregisterPointer((void**)&fig[i]);
   countMemoryEntries();
-  unregisterPointer((void**)&fig);
+  unregisterPointer((void**)(&(fig)+1));
   countMemoryEntries();
 }
 /*

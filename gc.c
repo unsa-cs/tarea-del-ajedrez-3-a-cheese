@@ -47,7 +47,8 @@ void memoryAlloc(void** pointer, size_t size){
   entry->pointers = createPointerNode(pointer);
   entry->next = memoryList;
   memoryList = entry;
-  fprintf(stderr,"MemoryAlloc(entry, entry->pointers) %p %p \n",entry, entry->pointers);
+  //fprintf(stderr,"MemoryAlloc(entry, entry->pointers) %p %p \n",entry, entry->pointers);
+  fprintf(stderr, "puntero que se crea en cada memorylist %p \n", memoryList->pointers->pointer);
 }
 
 // Función para agregar un puntero adicional que apunte a la misma memoria
@@ -67,11 +68,14 @@ void addPointer(void** new_pointer, void* existing_memory){
 
 // Función para desvincular un puntero de la entrada de memoria correspondiente
 void unregisterPointer(void** pointer){
+  fprintf(stderr, "valor de pointer parametro %p\n", pointer);
   MemoryEntry* current = memoryList;
+  //fprintf(stderr, "puntero de cada memoryList %p\n", );
   while(current){
     PointerNode* prev = NULL;
     PointerNode* ptr = current->pointers;
     while(ptr){
+      fprintf(stderr, "puntero de cada memoryList, puntero a eliminar , %p %p\n", ptr->pointer, pointer);
       if(ptr->pointer == pointer){
         if(prev)
           prev->next = ptr->next;
@@ -117,7 +121,7 @@ int countMemoryEntries(){
   int count = 0;
   MemoryEntry* current = memoryList;
   while(current){
-    fprintf(stderr, "MemoryList(current, current>pointers) %p %p\n", current, current->pointers);
+    //fprintf(stderr, "MemoryList(current, current>pointers) %p %p\n", current, current->pointers);
     if(current->pointers)
       count++;
     current = current->next;

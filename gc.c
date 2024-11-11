@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "gc.h"
 
 #include <stdio.h>
@@ -68,8 +67,16 @@ void addPointer(void** new_pointer, void* existing_memory){
 
 // Función para desvincular un puntero de la entrada de memoria correspondiente
 void unregisterPointer(void** pointer){
+  int cont=0;
   fprintf(stderr, "valor de pointer parametro %p\n", pointer);
   MemoryEntry* current = memoryList;
+  MemoryEntry* tmp = memoryList;
+  while(cont<59){
+    fprintf(stderr,"TempMemory : %p \n",tmp->pointers->pointer);
+    tmp = tmp->next;
+    cont++;
+  }
+  fprintf(stderr,"Tmp actual %p \n",tmp->pointers->pointer);
   //fprintf(stderr, "puntero de cada memoryList %p\n", );
   while(current){
     PointerNode* prev = NULL;
@@ -85,7 +92,7 @@ void unregisterPointer(void** pointer){
         return;
       }
       prev = ptr;
-        ptr = ptr->next;
+      ptr = ptr->next;
     }
     current = current->next;
   }

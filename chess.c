@@ -71,7 +71,6 @@ char** reverse(char** figures){
   // Aseguramos que la última fila también esté terminada correctamente
   reverso[fila] = NULL;
   unlinkMemory(reverso);
-  fprintf(stderr, "ver estado de reverso %p ", reverso);
   return reverso;
 }
 

@@ -75,7 +75,7 @@ void unregisterPointer(void** pointer){
     PointerNode* prev = NULL;
     PointerNode* ptr = current->pointers;
     while(ptr){
-      fprintf(stderr, "puntero de cada memoryList, puntero a eliminar , %p %p\n", ptr->pointer, pointer);
+      //fprintf(stderr, "puntero de cada memoryList, puntero a eliminar , %p %p\n", ptr->pointer, pointer);
       if(ptr->pointer == pointer){
         if(prev)
           prev->next = ptr->next;

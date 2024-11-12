@@ -12,9 +12,12 @@ char** allocateMemory(int rows, size_t cols){
 }
 
 void unlinkMemory(char** fig){
+  fprintf(stderr, "valor que recibe desde reverso %p\n", fig);
   countMemoryEntries();
-  for(int i = 0; fig[i]; i++)
+  for(int i = 0; fig[i]; i++){
+    fprintf(stderr, "valor de cada &fig[i] %p\n", &fig[i]);
     unregisterPointer((void**)&fig[i]);
+  }
   countMemoryEntries();
   unregisterPointer((void**)(&(fig)+1));
   countMemoryEntries();
@@ -51,6 +54,7 @@ char** reverse(char** figures){
   // Aquí usamos allocateMemory para asignar memoria
   // Filas: 'fila' y columnas: asumimos que cada fila tiene un tamaño 'fila' también
   char** reverso = allocateMemory(fila, fila);
+  fprintf(stderr, "valor inicial de reverse %p\n", reverso);
 
   // Cambiar el contenido de los caracteres
   for (int i = 0; i < fila; i++) {
@@ -70,6 +74,7 @@ char** reverse(char** figures){
 
   // Aseguramos que la última fila también esté terminada correctamente
   reverso[fila] = NULL;
+  fprintf(stderr, "valor a desvincular que se envia desde reverse %p\n", reverso);
   unlinkMemory(reverso);
   return reverso;
 }

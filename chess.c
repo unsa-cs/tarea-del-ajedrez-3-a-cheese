@@ -5,9 +5,11 @@
 
 char** allocateMemory(int rows, size_t cols){
   char** newFig;
-  memoryAlloc((void**)&newFig, sizeof(char*)*(rows + 1));
+  //memoryAlloc((void**)&newFig, sizeof(char*)*(rows + 1));
+  newFig = (char**)malloc(sizeof(char*)*(rows + 1));
   for(int i = 0; i < rows; i++)
     memoryAlloc((void**)&newFig[i], sizeof(char)*(cols + 1));
+  fprintf(stderr, "valor de newFig: %p", &newFig);
   return newFig;
 }
 
@@ -19,7 +21,7 @@ void unlinkMemory(char** fig){
     unregisterPointer((void**)&fig[i]);
   }
   countMemoryEntries();
-  unregisterPointer((void**)(&(fig)+1));
+  unregisterPointer((void**)&fig);
   countMemoryEntries();
 }
 /*

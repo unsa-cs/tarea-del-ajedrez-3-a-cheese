@@ -5,8 +5,8 @@
 
 char** allocateMemory(int rows, size_t cols){
   char** newFig;
-  //memoryAlloc((void**)&newFig, sizeof(char*)*(rows + 1));
-  newFig = (char**)malloc(sizeof(char*)*(rows + 1));
+  memoryAlloc((void**)&newFig, sizeof(char*)*(rows + 1));
+  //newFig = (char**)malloc(sizeof(char*)*(rows + 1));
   for(int i = 0; i < rows; i++)
     memoryAlloc((void**)&newFig[i], sizeof(char)*(cols + 1));
   fprintf(stderr, "valor de newFig: %p", &newFig);
@@ -21,29 +21,10 @@ void unlinkMemory(char** fig){
     unregisterPointer((void**)&fig[i]);
   }
   countMemoryEntries();
-  unregisterPointer((void**)&fig);
+  //unregisterPointer((void**)&fig);
+  unregisterPointer((void**)(&(fig)+1));
   countMemoryEntries();
 }
-/*
-char** reverse(char** fig){
-  int rows = 0;
-  while(fig[++rows]);
-  
-  int cols = 0;
-  while(fig[0][++cols]);
-
-  char** newFig = allocateMemory(rows, cols);
-
-  for(int i = 0; fig[i]; i++){
-    for(int j = 0; fig[0][j]; j++)
-      newFig[i][j] = fig[i][j];
-    newFig[i][cols] = 0;
-  }
-  newFig[rows] = 0;
-  unlinkMemory(newFig);
-  return newFig;
-}
-*/
 
 char** reverse(char** figures){
   int fila = 0;
@@ -76,8 +57,34 @@ char** reverse(char** figures){
 
   // Aseguramos que la última fila también esté terminada correctamente
   reverso[fila] = NULL;
-  fprintf(stderr, "valor a desvincular que se envia desde reverse %p\n", reverso);
+  //fprintf(stderr, "valor a desvincular que se envia desde reverse %p\n", reverso);
   unlinkMemory(reverso);
   return reverso;
 }
 
+char** join(char** figura1, char** figura2){
+  int fila=0;
+  int columna=0;
+
+  while(figura1[fila] != nullptr)
+    fila++;
+  while(figura1[0][columna] != 0)
+    columna++;
+
+  //char** juntar=(char**)malloc((fila+1)*sizeof(char*));
+  char** juntar = allocateMemory(fila,columna*2);
+
+  for(int j=0;j<fila;j++){
+    for(int k=0;k<2*columna;k++){
+      if(k<columna)
+        juntar[j][k]=figura1[j][k];
+      else
+        juntar[j][k]=figura2[j][k-columna];
+    }
+
+    juntar[j][2*columna]='\0';
+  }
+  juntar[fila]= 0;
+  unlinkMemory(juntar);
+  return juntar;
+}

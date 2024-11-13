@@ -3,7 +3,7 @@
 #include "gc.h"
 
 void display(){
-  char** blackSquare = reverse(whiteSquare);
-  interpreter(blackSquare);
+  char** juntar = join(whiteSquare,bishop);
+  interpreter(juntar);
   garbageCollector();
 }

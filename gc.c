@@ -47,7 +47,7 @@ void memoryAlloc(void** pointer, size_t size){
   entry->next = memoryList;
   memoryList = entry;
   //fprintf(stderr,"MemoryAlloc(entry, entry->pointers) %p %p \n",entry, entry->pointers);
-  fprintf(stderr, "puntero que se crea en cada memorylist %p \n", memoryList->pointers->pointer);
+  //fprintf(stderr, "puntero que se crea en cada memorylist %p \n", memoryList->pointers->pointer);
 }
 
 // Función para agregar un puntero adicional que apunte a la misma memoria
@@ -68,7 +68,7 @@ void addPointer(void** new_pointer, void* existing_memory){
 // Función para desvincular un puntero de la entrada de memoria correspondiente
 void unregisterPointer(void** pointer){
   int cont=0;
-  fprintf(stderr, "valor de pointer parametro %p\n", pointer);
+  //fprintf(stderr, "valor de pointer parametro %p\n", pointer);
   MemoryEntry* current = memoryList;
   //fprintf(stderr, "puntero de cada memoryList %p\n", );
   while(current){
@@ -112,7 +112,7 @@ void garbageCollector(){
       free(toFree);
     }
   }
-  fprintf(stderr, "el ultimo %p", currentEntry);
+  //fprintf(stderr, "el ultimo %p", currentEntry);
   free(currentEntry);
 }
 
